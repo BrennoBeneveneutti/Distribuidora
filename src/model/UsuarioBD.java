@@ -10,17 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * MODEL - guarda os usuarios num arquivinho de texto, um por linha:
- *
- *     usuario;senha;TIPO
- *
- * Ex.:  ana;456;CLIENTE
- *
- * Formato simples de proposito: nenhuma tabela nova no banco, nenhum
- * driver novo. Se o arquivo nao existir, cria com dois usuarios de
- * teste (vendedor/1234 e cliente/1234).
- */
+
 public class UsuarioBD {
 	private final Path arquivo;
 
@@ -39,7 +29,7 @@ public class UsuarioBD {
 		}
 	}
 
-// Le o arquivo inteiro e devolve cada linha ja cortada em 3 partes.
+
 	private List<String[]> linhas() {
 		try {
 			List<String[]> todas = new ArrayList<>();
@@ -54,7 +44,7 @@ public class UsuarioBD {
 		}
 	}
 
-// Devolve "VENDEDOR", "CLIENTE" ou null se usuario/senha nao baterem.
+
 	public String autenticar(String usuario, String senha) {
 		for (String[] campos : linhas()) {
 			if (campos[0].equals(usuario) && campos[1].equals(senha)) {
@@ -73,8 +63,7 @@ public class UsuarioBD {
 		return false;
 	}
 
-// Grava o usuario novo no FIM do arquivo. Devolve IllegalArgumentException
-// se o nome ja estiver em uso - mesmo padrao do PecaBD.
+
 	public void cadastrar(String usuario, String senha, String tipo) {
 		if (existe(usuario)) {
 			throw new IllegalArgumentException("Esse nome de usuario ja esta em uso.");

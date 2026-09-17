@@ -7,12 +7,7 @@ import model.UsuarioBD;
 import view.JanelaLogin;
 import view.JanelaPeca;
 
-/**
- * CONTROLLER - login e cadastro de usuarios.
- *
- * Entrar: consulta o UsuarioBD e abre a JanelaPeca no modo certo.
- * Cadastrar: grava o usuario novo com o tipo escolhido no combo.
- */
+
 public class LoginController implements ActionListener {
 
 	private JanelaLogin login;
@@ -24,7 +19,7 @@ public class LoginController implements ActionListener {
 		this.login.getBtnEntrar().addActionListener(this);
 		this.login.getBtnCadastrar().addActionListener(this);
 		this.login.getBtnSair().addActionListener(this);
-// Enter no campo de senha tambem dispara o login.
+
 		this.login.getTxtSenha().addActionListener(this);
 	}
 

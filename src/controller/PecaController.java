@@ -7,23 +7,18 @@ import model.Peca;
 import model.PecaBD;
 import view.JanelaPeca;
 
-/**
- * CONTROLLER - aqui mora o codigo dos botoes.
- *
- * Um actionPerformed so, que descobre qual botao foi clicado. Quem tem
- * regra de negocio e o Model (PecaBD); quem so exibe e a View.
- */
+
 public class PecaController implements ActionListener {
 	private PecaBD bd;
 	private JanelaPeca view;
-// Guarda a peca carregada pelo botao Buscar. O Atualizar precisa do
-// id dela, que nao aparece em nenhum campo da tela.
+
+
 	private Peca pecaEmEdicao = null;
 
 	public PecaController(PecaBD bd, JanelaPeca view) {
 		this.bd = bd;
 		this.view = view;
-// O "this" e o proprio Controller se registrando como ouvinte.
+
 		this.view.getBtnCadastrar().addActionListener(this);
 		this.view.getBtnBuscar().addActionListener(this);
 		this.view.getBtnAtualizar().addActionListener(this);
@@ -36,8 +31,8 @@ public class PecaController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-// e.getSource() devolve o componente que originou o evento.
-// == e nao equals: a pergunta e "e exatamente aquele objeto?".
+
+
 		if (e.getSource() == this.view.getBtnCadastrar()) {
 			cadastrar();
 		} else if (e.getSource() == this.view.getBtnBuscar()) {
@@ -60,8 +55,8 @@ public class PecaController implements ActionListener {
 		}
 	}
 
-// Le os campos da tela e monta a Peca. Devolve null se numero vier
-// invalido (avisa a View). Usada por cadastrar() e atualizar().
+
+
 	private Peca pecaDosCampos() {
 		Peca p = new Peca();
 		p.setCodigo(this.view.getTxtCodigo().getText());
@@ -84,20 +79,20 @@ public class PecaController implements ActionListener {
 	}
 
 	private void cadastrar() {
-// 1. pede os dados a View
+
 		Peca peca = pecaDosCampos();
 		if (peca == null) {
-			return; // numero invalido: a View ja avisou
+			return; 
 		}
-// 2. entrega ao Model, que aplica as regras e grava
+
 		try {
 			this.bd.salvar(peca);
 		} catch (IllegalArgumentException erro) {
-// Repassa a mensagem sem saber qual regra falhou.
+
 			this.view.mostrarErro(erro.getMessage());
-			return; // sem o return, a mensagem de sucesso viria em seguida
+			return; 
 		}
-// 3. deu certo
+
 		this.view.mostrarMensagem("Cadastrado. Total no banco: " + this.bd.contar());
 		this.view.limparCampos();
 	}

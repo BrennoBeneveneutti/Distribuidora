@@ -1,0 +1,4 @@
+vendedor;1234;VENDEDOR
+cliente;1234;CLIENTE
+mendiguinho;123;VENDEDOR
+mendiguzinho;12;CLIENTE

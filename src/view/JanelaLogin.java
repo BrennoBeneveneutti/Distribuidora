@@ -21,9 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-/**
- * VIEW - Tela de Login modernizada com suporte a modo escuro/claro suave.
- */
+
 public class JanelaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -31,10 +29,11 @@ public class JanelaLogin extends JFrame {
 	private JPasswordField txtSenha;
 	private JComboBox<String> cbTipo;
 	private JButton btnEntrar;
+	
 	private JButton btnCadastrar;
 	private JButton btnSair;
 
-	// Cores do tema
+
 	private final Color COLOR_BG = new Color(245, 247, 250);
 	private final Color COLOR_PANEL = new Color(255, 255, 255);
 	private final Color COLOR_PRIMARY = new Color(37, 99, 235);
@@ -49,12 +48,10 @@ public class JanelaLogin extends JFrame {
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(COLOR_BG);
 
-		// Painel Principal com margens generosas
 		JPanel mainPanel = new JPanel(new BorderLayout(0, 15));
 		mainPanel.setBackground(COLOR_BG);
 		mainPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 
-		// CABEÇALHO (Título estilizado)
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setOpaque(false);
 		
@@ -83,49 +80,91 @@ public class JanelaLogin extends JFrame {
 		g.fill = GridBagConstraints.HORIZONTAL;
 
 		Font labelFont = new Font("Segoe UI", Font.BOLD, 12);
+		Font fieldFont = new Font("Segoe UI", Font.PLAIN, 13);
 		
-		txtUsuario = estilizarTextField(new JTextField());
-		txtSenha = estilizarPasswordField(new JPasswordField());
+		txtUsuario = new JTextField();
+		txtUsuario.setFont(fieldFont);
+		txtUsuario.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 8, 6, 8)
+		));
+
+		txtSenha = new JPasswordField();
+		txtSenha.setFont(fieldFont);
+		txtSenha.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 8, 6, 8)
+		));
+
 		cbTipo = new JComboBox<>(new String[] { "cliente", "vendedor" });
-		cbTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		cbTipo.setFont(fieldFont);
 		cbTipo.setBackground(Color.WHITE);
 
-		// Linha 0: Usuário
 		g.gridx = 0; g.gridy = 0; g.weightx = 0;
 		JLabel lblUser = new JLabel("Usuário:");
 		lblUser.setFont(labelFont);
 		lblUser.setForeground(COLOR_TEXT);
-		formulario.add(lblUser, g);
+		formulario.add(lblUser, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtUsuario, g);
+		formulario.add(txtUsuario, (GridBagConstraints) g.clone());
 
-		// Linha 1: Senha
 		g.gridx = 0; g.gridy = 1; g.weightx = 0;
 		JLabel lblPass = new JLabel("Senha:");
 		lblPass.setFont(labelFont);
 		lblPass.setForeground(COLOR_TEXT);
-		formulario.add(lblPass, g);
+		formulario.add(lblPass, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtSenha, g);
+		formulario.add(txtSenha, (GridBagConstraints) g.clone());
 
-		// Linha 2: Tipo de Acesso
 		g.gridx = 0; g.gridy = 2; g.weightx = 0;
 		JLabel lblTipo = new JLabel("Tipo (p/ cadastro):");
 		lblTipo.setFont(labelFont);
 		lblTipo.setForeground(COLOR_TEXT);
-		formulario.add(lblTipo, g);
+		formulario.add(lblTipo, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(cbTipo, g);
+		formulario.add(cbTipo, (GridBagConstraints) g.clone());
 
 		mainPanel.add(formulario, BorderLayout.CENTER);
 
 		// BARRAS DE BOTÕES (Rodapé)
-		btnEntrar = criarBotao("Entrar", COLOR_PRIMARY, Color.WHITE);
-		btnCadastrar = criarBotao("Cadastrar", new Color(241, 245, 249), COLOR_TEXT);
-		btnSair = criarBotao("Sair", new Color(254, 226, 226), new Color(220, 38, 38));
+		Font btnFont = new Font("Segoe UI", Font.BOLD, 12);
+		Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
+
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setFont(btnFont);
+		btnCadastrar.setBackground(new Color(241, 245, 249));
+		btnCadastrar.setForeground(COLOR_TEXT);
+		btnCadastrar.setFocusPainted(false);
+		btnCadastrar.setCursor(handCursor);
+		btnCadastrar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(241, 245, 249).darker(), 1),
+				BorderFactory.createEmptyBorder(8, 14, 8, 14)
+		));
+
+		btnSair = new JButton("Sair");
+		btnSair.setFont(btnFont);
+		btnSair.setBackground(new Color(254, 226, 226));
+		btnSair.setForeground(new Color(220, 38, 38));
+		btnSair.setFocusPainted(false);
+		btnSair.setCursor(handCursor);
+		btnSair.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(254, 226, 226).darker(), 1),
+				BorderFactory.createEmptyBorder(8, 14, 8, 14)
+		));
+
+		btnEntrar = new JButton("Entrar");
+		btnEntrar.setFont(btnFont);
+		btnEntrar.setBackground(COLOR_PRIMARY);
+		btnEntrar.setForeground(Color.WHITE);
+		btnEntrar.setFocusPainted(false);
+		btnEntrar.setCursor(handCursor);
+		btnEntrar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(COLOR_PRIMARY.darker(), 1),
+				BorderFactory.createEmptyBorder(8, 14, 8, 14)
+		));
 
 		JPanel barra = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
 		barra.setOpaque(false);
@@ -134,39 +173,7 @@ public class JanelaLogin extends JFrame {
 		barra.add(btnEntrar);
 
 		mainPanel.add(barra, BorderLayout.SOUTH);
-		add(mainPanel);
-	}
-
-	private JTextField estilizarTextField(JTextField field) {
-		field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		field.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 8, 6, 8)
-		));
-		return field;
-	}
-
-	private JPasswordField estilizarPasswordField(JPasswordField field) {
-		field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		field.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 8, 6, 8)
-		));
-		return field;
-	}
-
-	private JButton criarBotao(String texto, Color bg, Color fg) {
-		JButton btn = new JButton(texto);
-		btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btn.setBackground(bg);
-		btn.setForeground(fg);
-		btn.setFocusPainted(false);
-		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btn.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(bg.darker(), 1),
-				BorderFactory.createEmptyBorder(8, 14, 8, 14)
-		));
-		return btn;
+		getContentPane().add(mainPanel);
 	}
 
 	public JTextField getTxtUsuario() { return txtUsuario; }

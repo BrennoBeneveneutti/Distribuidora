@@ -21,9 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * VIEW - Janela Principal de Peças com visual modernizado.
- */
+
 public class JanelaPeca extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +42,7 @@ public class JanelaPeca extends JFrame {
 	private JTable tabela;
 	private DefaultTableModel modeloTabela;
 
-	// Cores do Tema
+
 	private final Color COLOR_BG = new Color(245, 247, 250);
 	private final Color COLOR_PANEL = new Color(255, 255, 255);
 	private final Color COLOR_TEXT = new Color(30, 41, 59);
@@ -63,7 +61,7 @@ public class JanelaPeca extends JFrame {
 		mainPanel.setBackground(COLOR_BG);
 		mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-		// --- FORMULÁRIO (GridBagLayout) ---
+
 		JPanel formulario = new JPanel(new GridBagLayout());
 		formulario.setBackground(COLOR_PANEL);
 		formulario.setBorder(BorderFactory.createCompoundBorder(
@@ -75,52 +73,71 @@ public class JanelaPeca extends JFrame {
 		g.insets = new Insets(5, 5, 5, 5);
 		g.fill = GridBagConstraints.HORIZONTAL;
 
-		txtCodigo = estilizarTextField(new JTextField());
-		txtNome = estilizarTextField(new JTextField());
-		txtPreco = estilizarTextField(new JTextField());
-		txtQuantidade = estilizarTextField(new JTextField());
-
 		Font labelFont = new Font("Segoe UI", Font.BOLD, 12);
+		Font fieldFont = new Font("Segoe UI", Font.PLAIN, 13);
 
-		// Linha 0
+
 		g.gridx = 0; g.gridy = 0; g.weightx = 0;
 		JLabel lblCodigo = new JLabel("Código:");
 		lblCodigo.setFont(labelFont);
 		lblCodigo.setForeground(COLOR_TEXT);
-		formulario.add(lblCodigo, g);
+		formulario.add(lblCodigo, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtCodigo, g);
+		txtCodigo = new JTextField();
+		txtCodigo.setFont(fieldFont);
+		txtCodigo.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtCodigo, (GridBagConstraints) g.clone());
 
-		// Linha 1
 		g.gridx = 0; g.gridy = 1; g.weightx = 0;
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(labelFont);
 		lblNome.setForeground(COLOR_TEXT);
-		formulario.add(lblNome, g);
+		formulario.add(lblNome, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtNome, g);
+		txtNome = new JTextField();
+		txtNome.setFont(fieldFont);
+		txtNome.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtNome, (GridBagConstraints) g.clone());
 
-		// Linha 2
+
 		g.gridx = 0; g.gridy = 2; g.weightx = 0;
 		JLabel lblPreco = new JLabel("Preço (R$):");
 		lblPreco.setFont(labelFont);
 		lblPreco.setForeground(COLOR_TEXT);
-		formulario.add(lblPreco, g);
+		formulario.add(lblPreco, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtPreco, g);
+		txtPreco = new JTextField();
+		txtPreco.setFont(fieldFont);
+		txtPreco.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtPreco, (GridBagConstraints) g.clone());
 
-		// Linha 3
+		
 		g.gridx = 0; g.gridy = 3; g.weightx = 0;
 		JLabel lblQtd = new JLabel("Quantidade:");
 		lblQtd.setFont(labelFont);
 		lblQtd.setForeground(COLOR_TEXT);
-		formulario.add(lblQtd, g);
+		formulario.add(lblQtd, (GridBagConstraints) g.clone());
 
 		g.gridx = 1; g.weightx = 1;
-		formulario.add(txtQuantidade, g);
+		txtQuantidade = new JTextField();
+		txtQuantidade.setFont(fieldFont);
+		txtQuantidade.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtQuantidade, (GridBagConstraints) g.clone());
 
 		mainPanel.add(formulario, BorderLayout.NORTH);
 
@@ -143,24 +160,96 @@ public class JanelaPeca extends JFrame {
 		mainPanel.add(scrollTabela, BorderLayout.CENTER);
 
 		// --- BARRA DE BOTÕES ---
-		btnCadastrar = new JButton("Cadastrar");
-		btnAtualizar = new JButton("Atualizar");
-		btnExcluir = new JButton("Excluir");
-		btnBuscar = new JButton("Buscar");
-		btnLimpar = new JButton("Limpar");
-		btnListar = new JButton("Listar Tudo");
-		btnVender = new JButton("Vender");
-		btnFechar = new JButton("Fechar");
+		Font btnFont = new Font("Segoe UI", Font.BOLD, 12);
+		Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
 
-		// Aplicando a estilização padrão em cada botão
-		estilizarBotaoPeca(btnCadastrar, COLOR_PRIMARY);
-		estilizarBotaoPeca(btnAtualizar, COLOR_TEXT);
-		estilizarBotaoPeca(btnExcluir, COLOR_DANGER);
-		estilizarBotaoPeca(btnBuscar, COLOR_TEXT);
-		estilizarBotaoPeca(btnLimpar, COLOR_TEXT);
-		estilizarBotaoPeca(btnListar, COLOR_TEXT);
-		estilizarBotaoPeca(btnVender, new Color(16, 185, 129)); // Verde para venda
-		estilizarBotaoPeca(btnFechar, COLOR_TEXT);
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setFont(btnFont);
+		btnCadastrar.setFocusPainted(false);
+		btnCadastrar.setCursor(handCursor);
+		btnCadastrar.setBackground(new Color(241, 245, 249));
+		btnCadastrar.setForeground(COLOR_PRIMARY);
+		btnCadastrar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setFont(btnFont);
+		btnAtualizar.setFocusPainted(false);
+		btnAtualizar.setCursor(handCursor);
+		btnAtualizar.setBackground(new Color(241, 245, 249));
+		btnAtualizar.setForeground(COLOR_TEXT);
+		btnAtualizar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(btnFont);
+		btnExcluir.setFocusPainted(false);
+		btnExcluir.setCursor(handCursor);
+		btnExcluir.setBackground(new Color(241, 245, 249));
+		btnExcluir.setForeground(COLOR_DANGER);
+		btnExcluir.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(btnFont);
+		btnBuscar.setFocusPainted(false);
+		btnBuscar.setCursor(handCursor);
+		btnBuscar.setBackground(new Color(241, 245, 249));
+		btnBuscar.setForeground(COLOR_TEXT);
+		btnBuscar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.setFont(btnFont);
+		btnLimpar.setFocusPainted(false);
+		btnLimpar.setCursor(handCursor);
+		btnLimpar.setBackground(new Color(241, 245, 249));
+		btnLimpar.setForeground(COLOR_TEXT);
+		btnLimpar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnListar = new JButton("Listar Tudo");
+		btnListar.setFont(btnFont);
+		btnListar.setFocusPainted(false);
+		btnListar.setCursor(handCursor);
+		btnListar.setBackground(new Color(241, 245, 249));
+		btnListar.setForeground(COLOR_TEXT);
+		btnListar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnVender = new JButton("Vender");
+		btnVender.setFont(btnFont);
+		btnVender.setFocusPainted(false);
+		btnVender.setCursor(handCursor);
+		btnVender.setBackground(new Color(241, 245, 249));
+		btnVender.setForeground(new Color(16, 185, 129));
+		btnVender.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
+
+		btnFechar = new JButton("Fechar");
+		btnFechar.setFont(btnFont);
+		btnFechar.setFocusPainted(false);
+		btnFechar.setCursor(handCursor);
+		btnFechar.setBackground(new Color(241, 245, 249));
+		btnFechar.setForeground(COLOR_TEXT);
+		btnFechar.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 12, 6, 12)
+		));
 
 		JPanel barraBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 6, 6));
 		barraBotoes.setOpaque(false);
@@ -175,32 +264,9 @@ public class JanelaPeca extends JFrame {
 		barraBotoes.add(btnFechar);
 
 		mainPanel.add(barraBotoes, BorderLayout.SOUTH);
-		add(mainPanel);
+		getContentPane().add(mainPanel);
 	}
 
-	private JTextField estilizarTextField(JTextField field) {
-		field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		field.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(5, 8, 5, 8)
-		));
-		return field;
-	}
-
-	// Método auxiliar para aplicar o padrão visual nos botões
-	private void estilizarBotaoPeca(JButton btn, Color corTexto) {
-		btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btn.setFocusPainted(false);
-		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btn.setBackground(new Color(241, 245, 249));
-		btn.setForeground(corTexto);
-		btn.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-	}
-
-	// Oculta botões restritos quando logado como Cliente
 	public void modoCliente() {
 		btnCadastrar.setVisible(false);
 		btnAtualizar.setVisible(false);
@@ -208,7 +274,6 @@ public class JanelaPeca extends JFrame {
 		btnVender.setVisible(false);
 	}
 
-	// Getters dos componentes
 	public JTextField getTxtCodigo() { return txtCodigo; }
 	public JTextField getTxtNome() { return txtNome; }
 	public JTextField getTxtPreco() { return txtPreco; }
