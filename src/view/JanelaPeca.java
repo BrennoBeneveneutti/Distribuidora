@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,12 +23,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.Peca;
 
 public class JanelaPeca extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTextField txtCodigo;
 	private JTextField txtNome;
+	private JTextField txtMarca;
+	private JTextField txtAplicacao;
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 
@@ -42,7 +47,6 @@ public class JanelaPeca extends JFrame {
 	private JTable tabela;
 	private DefaultTableModel modeloTabela;
 
-
 	private final Color COLOR_BG = new Color(245, 247, 250);
 	private final Color COLOR_PANEL = new Color(255, 255, 255);
 	private final Color COLOR_TEXT = new Color(30, 41, 59);
@@ -52,15 +56,14 @@ public class JanelaPeca extends JFrame {
 	public JanelaPeca() {
 		setTitle("Distribuidora de Autopeças - Gerenciamento de Peças");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(750, 550);
-		setMinimumSize(new Dimension(650, 450));
+		setSize(800, 600);
+		setMinimumSize(new Dimension(700, 500));
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(COLOR_BG);
 
 		JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 		mainPanel.setBackground(COLOR_BG);
 		mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
-
 
 		JPanel formulario = new JPanel(new GridBagLayout());
 		formulario.setBackground(COLOR_PANEL);
@@ -76,7 +79,7 @@ public class JanelaPeca extends JFrame {
 		Font labelFont = new Font("Segoe UI", Font.BOLD, 12);
 		Font fieldFont = new Font("Segoe UI", Font.PLAIN, 13);
 
-
+		// Código
 		g.gridx = 0; g.gridy = 0; g.weightx = 0;
 		JLabel lblCodigo = new JLabel("Código:");
 		lblCodigo.setFont(labelFont);
@@ -92,8 +95,9 @@ public class JanelaPeca extends JFrame {
 		));
 		formulario.add(txtCodigo, (GridBagConstraints) g.clone());
 
+		// Nome / Descrição
 		g.gridx = 0; g.gridy = 1; g.weightx = 0;
-		JLabel lblNome = new JLabel("Nome:");
+		JLabel lblNome = new JLabel("Descrição:");
 		lblNome.setFont(labelFont);
 		lblNome.setForeground(COLOR_TEXT);
 		formulario.add(lblNome, (GridBagConstraints) g.clone());
@@ -107,8 +111,40 @@ public class JanelaPeca extends JFrame {
 		));
 		formulario.add(txtNome, (GridBagConstraints) g.clone());
 
-
+		// Marca
 		g.gridx = 0; g.gridy = 2; g.weightx = 0;
+		JLabel lblMarca = new JLabel("Marca:");
+		lblMarca.setFont(labelFont);
+		lblMarca.setForeground(COLOR_TEXT);
+		formulario.add(lblMarca, (GridBagConstraints) g.clone());
+
+		g.gridx = 1; g.weightx = 1;
+		txtMarca = new JTextField();
+		txtMarca.setFont(fieldFont);
+		txtMarca.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtMarca, (GridBagConstraints) g.clone());
+
+		// Aplicação
+		g.gridx = 0; g.gridy = 3; g.weightx = 0;
+		JLabel lblAplicacao = new JLabel("Aplicação:");
+		lblAplicacao.setFont(labelFont);
+		lblAplicacao.setForeground(COLOR_TEXT);
+		formulario.add(lblAplicacao, (GridBagConstraints) g.clone());
+
+		g.gridx = 1; g.weightx = 1;
+		txtAplicacao = new JTextField();
+		txtAplicacao.setFont(fieldFont);
+		txtAplicacao.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(5, 8, 5, 8)
+		));
+		formulario.add(txtAplicacao, (GridBagConstraints) g.clone());
+
+		// Preço
+		g.gridx = 0; g.gridy = 4; g.weightx = 0;
 		JLabel lblPreco = new JLabel("Preço (R$):");
 		lblPreco.setFont(labelFont);
 		lblPreco.setForeground(COLOR_TEXT);
@@ -123,8 +159,8 @@ public class JanelaPeca extends JFrame {
 		));
 		formulario.add(txtPreco, (GridBagConstraints) g.clone());
 
-		
-		g.gridx = 0; g.gridy = 3; g.weightx = 0;
+		// Quantidade
+		g.gridx = 0; g.gridy = 5; g.weightx = 0;
 		JLabel lblQtd = new JLabel("Quantidade:");
 		lblQtd.setFont(labelFont);
 		lblQtd.setForeground(COLOR_TEXT);
@@ -142,7 +178,7 @@ public class JanelaPeca extends JFrame {
 		mainPanel.add(formulario, BorderLayout.NORTH);
 
 		// --- TABELA ---
-		String[] colunas = { "Código", "Nome", "Preço (R$)", "Quantidade" };
+		String[] colunas = { "Código", "Descrição", "Marca", "Aplicação", "Preço (R$)", "Quantidade" };
 		modeloTabela = new DefaultTableModel(colunas, 0) {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -276,6 +312,8 @@ public class JanelaPeca extends JFrame {
 
 	public JTextField getTxtCodigo() { return txtCodigo; }
 	public JTextField getTxtNome() { return txtNome; }
+	public JTextField getTxtMarca() { return txtMarca; }
+	public JTextField getTxtAplicacao() { return txtAplicacao; }
 	public JTextField getTxtPreco() { return txtPreco; }
 	public JTextField getTxtQuantidade() { return txtQuantidade; }
 
@@ -290,6 +328,75 @@ public class JanelaPeca extends JFrame {
 
 	public DefaultTableModel getModeloTabela() { return modeloTabela; }
 	public JTable getTabela() { return tabela; }
+
+	// --- MÉTODOS AUXILIARES E DE INTERAÇÃO COM A VIEW ---
+
+	public void limparCampos() {
+		txtCodigo.setText("");
+		txtNome.setText("");
+		txtMarca.setText("");
+		txtAplicacao.setText("");
+		txtPreco.setText("");
+		txtQuantidade.setText("");
+	}
+
+	public void mostrarPeca(Peca p) {
+		txtCodigo.setText(p.getCodigo());
+		txtNome.setText(p.getDescricao());
+		txtMarca.setText(p.getMarca());
+		txtAplicacao.setText(p.getAplicacao());
+		txtPreco.setText(String.valueOf(p.getPreco()));
+		txtQuantidade.setText(String.valueOf(p.getQuantidade()));
+	}
+
+	public void limparTabela() {
+		modeloTabela.setRowCount(0);
+	}
+
+	public void mostrarLista(List<Peca> lista) {
+		limparTabela();
+		for (Peca p : lista) {
+			modeloTabela.addRow(new Object[] {
+				p.getCodigo(),
+				p.getDescricao(),
+				p.getMarca(),
+				p.getAplicacao(),
+				String.format("%.2f", p.getPreco()),
+				p.getQuantidade()
+			});
+		}
+	}
+
+	public boolean confirmarExclusao() {
+		int resposta = JOptionPane.showConfirmDialog(
+			this, 
+			"Tem certeza que deseja excluir esta peça?", 
+			"Confirmação de Exclusão", 
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE
+		);
+		return resposta == JOptionPane.YES_OPTION;
+	}
+
+	public boolean confirmarSaida() {
+		int resposta = JOptionPane.showConfirmDialog(
+			this, 
+			"Deseja realmente fechar a aplicação?", 
+			"Sair", 
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE
+		);
+		return resposta == JOptionPane.YES_OPTION;
+	}
+
+	public String perguntarQuantidadeVenda() {
+		return JOptionPane.showInputDialog(
+			this, 
+			"Informe a quantidade que deseja vender:", 
+			"Registrar Venda", 
+			JOptionPane.QUESTION_MESSAGE
+		);
+	}
 
 	public void mostrarMensagem(String texto) {
 		JOptionPane.showMessageDialog(this, texto, "Informação", JOptionPane.INFORMATION_MESSAGE);

@@ -2,16 +2,15 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import model.Peca;
 import model.PecaBD;
 import view.JanelaPeca;
 
-
 public class PecaController implements ActionListener {
 	private PecaBD bd;
 	private JanelaPeca view;
-
 
 	private Peca pecaEmEdicao = null;
 
@@ -31,8 +30,6 @@ public class PecaController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-
 		if (e.getSource() == this.view.getBtnCadastrar()) {
 			cadastrar();
 		} else if (e.getSource() == this.view.getBtnBuscar()) {
@@ -55,125 +52,149 @@ public class PecaController implements ActionListener {
 		}
 	}
 
-
-
 	private Peca pecaDosCampos() {
 		Peca p = new Peca();
-		p.setCodigo(this.view.getTxtCodigo().getText());
-		p.setDescricao(this.view.getTxtDescricao().getText());
-		p.setMarca(this.view.getTxtMarca().getText());
-		p.setAplicacao(this.view.getTxtAplicacao().getText());
+		p.setCodigo(this.view.getTxtCodigo().getText().trim());
+		p.setDescricao(this.view.getTxtNome().getText().trim());
+		p.setMarca(this.view.getTxtMarca().getText().trim());
+		p.setAplicacao(this.view.getTxtAplicacao().getText().trim());
+
 		try {
 			p.setPreco(Double.parseDouble(this.view.getTxtPreco().getText().trim().replace(",", ".")));
 		} catch (NumberFormatException erro) {
-			this.view.mostrarErro("Preco invalido. Use numeros, ex.: 49.90");
+			this.view.mostrarErro("Preço inválido. Use números, ex.: 49.90");
 			return null;
 		}
+
 		try {
 			p.setQuantidade(Integer.parseInt(this.view.getTxtQuantidade().getText().trim()));
 		} catch (NumberFormatException erro) {
-			this.view.mostrarErro("Quantidade invalida. Use numeros inteiros.");
+			this.view.mostrarErro("Quantidade inválida. Use números inteiros.");
 			return null;
 		}
+
 		return p;
 	}
 
 	private void cadastrar() {
-
 		Peca peca = pecaDosCampos();
 		if (peca == null) {
-			return; 
+			return;
 		}
 
 		try {
 			this.bd.salvar(peca);
 		} catch (IllegalArgumentException erro) {
-
 			this.view.mostrarErro(erro.getMessage());
-			return; 
+			return;
 		}
 
-		this.view.mostrarMensagem("Cadastrado. Total no banco: " + this.bd.contar());
+		this.view.mostrarMensagem("Cadastrado com sucesso. Total no banco: " + this.bd.contar());
 		this.view.limparCampos();
+		listar();
 	}
 
 	private void buscar() {
-		String codigo = this.view.getTxtCodigo().getText();
-		Peca p = this.bd.buscarPorCodigo(codigo);
-		if (p == null) {
-			this.view.mostrarErro("Peca nao encontrada.");
+		String codigo = this.view.getTxtCodigo().getText().trim();
+		if (codigo.isEmpty()) {
+			this.view.mostrarErro("Informe o código para buscar.");
 			return;
 		}
+
+		Peca p = this.bd.buscarPorCodigo(codigo);
+		if (p == null) {
+			this.view.mostrarErro("Peça não encontrada.");
+			return;
+		}
+
 		this.pecaEmEdicao = p;
 		this.view.mostrarPeca(p);
 	}
 
 	private void atualizar() {
 		if (this.pecaEmEdicao == null) {
-			this.view.mostrarErro("Busque a peca pelo codigo antes de atualizar.");
+			this.view.mostrarErro("Busque a peça pelo código antes de atualizar.");
 			return;
 		}
+
 		Peca peca = pecaDosCampos();
 		if (peca == null) {
 			return;
 		}
+
 		peca.setId(this.pecaEmEdicao.getId());
+
 		try {
 			this.bd.atualizar(peca);
 		} catch (IllegalArgumentException erro) {
 			this.view.mostrarErro(erro.getMessage());
 			return;
 		}
+
 		this.pecaEmEdicao = peca;
-		this.view.mostrarMensagem("Atualizado.");
+		this.view.mostrarMensagem("Atualizado com sucesso.");
+		listar();
 	}
 
 	private void excluir() {
-		String codigo = this.view.getTxtCodigo().getText();
+		String codigo = this.view.getTxtCodigo().getText().trim();
 		if (!this.bd.existeCodigo(codigo)) {
-			this.view.mostrarErro("Peca nao encontrada.");
+			this.view.mostrarErro("Peça não encontrada.");
 			return;
 		}
+
 		if (!this.view.confirmarExclusao()) {
 			return;
 		}
+
 		this.bd.excluirPorCodigo(codigo);
 		this.pecaEmEdicao = null;
-		this.view.mostrarMensagem("Excluido.");
+		this.view.mostrarMensagem("Excluído com sucesso.");
 		this.view.limparCampos();
+		listar();
 	}
 
 	private void listar() {
-		java.util.List<Peca> lista = this.bd.listarTodos();
+		List<Peca> lista = this.bd.listarTodos();
 		if (lista.isEmpty()) {
-			this.view.mostrarMensagem("Nenhuma peca cadastrada.");
+			this.view.limparTabela();
+			this.view.mostrarMensagem("Nenhuma peça cadastrada.");
 			return;
 		}
 		this.view.mostrarLista(lista);
 	}
 
 	private void vender() {
-		String codigo = this.view.getTxtCodigo().getText();
-		String digitado = this.view.perguntarQuantidadeVenda();
-		if (digitado == null) {
-			return; 
+		String codigo = this.view.getTxtCodigo().getText().trim();
+		if (codigo.isEmpty()) {
+			this.view.mostrarErro("Informe o código da peça a ser vendida.");
+			return;
 		}
+
+		String digitado = this.view.perguntarQuantidadeVenda();
+		if (digitado == null || digitado.trim().isEmpty()) {
+			return;
+		}
+
 		int quantidade;
 		try {
 			quantidade = Integer.parseInt(digitado.trim());
 		} catch (NumberFormatException erro) {
-			this.view.mostrarErro("Quantidade invalida.");
+			this.view.mostrarErro("Quantidade inválida.");
 			return;
 		}
+
 		try {
 			this.bd.darBaixa(codigo, quantidade);
 		} catch (IllegalArgumentException erro) {
 			this.view.mostrarErro(erro.getMessage());
 			return;
 		}
+
 		Peca p = this.bd.buscarPorCodigo(codigo);
 		this.view.mostrarMensagem(
 				"Venda registrada. Estoque restante de " + p.getDescricao() + ": " + p.getQuantidade());
+		listar();
 	}
 
 	public void iniciarTela() {
