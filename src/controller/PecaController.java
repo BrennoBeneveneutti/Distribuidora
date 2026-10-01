@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Peca;
@@ -20,6 +21,7 @@ public class PecaController implements ActionListener {
 
 		this.view.getBtnCadastrar().addActionListener(this);
 		this.view.getBtnBuscar().addActionListener(this);
+		this.view.getBtnBuscarMarca().addActionListener(this);
 		this.view.getBtnAtualizar().addActionListener(this);
 		this.view.getBtnExcluir().addActionListener(this);
 		this.view.getBtnLimpar().addActionListener(this);
@@ -34,6 +36,8 @@ public class PecaController implements ActionListener {
 			cadastrar();
 		} else if (e.getSource() == this.view.getBtnBuscar()) {
 			buscar();
+		} else if (e.getSource() == this.view.getBtnBuscarMarca()) {
+			buscarPorMarca();
 		} else if (e.getSource() == this.view.getBtnAtualizar()) {
 			atualizar();
 		} else if (e.getSource() == this.view.getBtnExcluir()) {
@@ -109,6 +113,31 @@ public class PecaController implements ActionListener {
 
 		this.pecaEmEdicao = p;
 		this.view.mostrarPeca(p);
+	}
+
+	private void buscarPorMarca() {
+		String marca = this.view.getTxtMarca().getText().trim();
+		if (marca.isEmpty()) {
+			this.view.mostrarErro("Informe a marca para realizar a busca.");
+			return;
+		}
+
+		List<Peca> todas = this.bd.listarTodos();
+		List<Peca> encontradas = new ArrayList<>();
+
+		for (Peca p : todas) {
+			if (p.getMarca() != null && p.getMarca().toLowerCase().contains(marca.toLowerCase())) {
+				encontradas.add(p);
+			}
+		}
+
+		if (encontradas.isEmpty()) {
+			this.view.limparTabela();
+			this.view.mostrarMensagem("Nenhuma peça encontrada com a marca: " + marca);
+			return;
+		}
+
+		this.view.mostrarLista(encontradas);
 	}
 
 	private void atualizar() {

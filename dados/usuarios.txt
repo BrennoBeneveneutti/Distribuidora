@@ -5,3 +5,6 @@ mendiguzinho;12;CLIENTE
 alvinhodimelinho;12345;CLIENTE
 adim;adm;VENDEDOR
 adimin;adm;VENDEDOR
+fggfg;fgfg;CLIENTE
+fdfgdf;dfgdfgd;VENDEDOR
+fghf;fhfhfgh;VENDEDOR

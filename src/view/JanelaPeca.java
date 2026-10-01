@@ -39,6 +39,7 @@ public class JanelaPeca extends JFrame {
 	private JButton btnAtualizar;
 	private JButton btnExcluir;
 	private JButton btnBuscar;
+	private JButton btnBuscarMarca;
 	private JButton btnLimpar;
 	private JButton btnListar;
 	private JButton btnVender;
@@ -56,8 +57,8 @@ public class JanelaPeca extends JFrame {
 	public JanelaPeca() {
 		setTitle("Distribuidora de Autopeças - Gerenciamento de Peças");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
-		setMinimumSize(new Dimension(700, 500));
+		setSize(850, 600);
+		setMinimumSize(new Dimension(750, 500));
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(COLOR_BG);
 
@@ -84,7 +85,7 @@ public class JanelaPeca extends JFrame {
 		JLabel lblCodigo = new JLabel("Código:");
 		lblCodigo.setFont(labelFont);
 		lblCodigo.setForeground(COLOR_TEXT);
-		formulario.add(lblCodigo, (GridBagConstraints) g.clone());
+		formulario.add(lblCodigo, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtCodigo = new JTextField();
@@ -93,14 +94,14 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtCodigo, (GridBagConstraints) g.clone());
+		formulario.add(txtCodigo, g);
 
 		// Nome / Descrição
 		g.gridx = 0; g.gridy = 1; g.weightx = 0;
 		JLabel lblNome = new JLabel("Descrição:");
 		lblNome.setFont(labelFont);
 		lblNome.setForeground(COLOR_TEXT);
-		formulario.add(lblNome, (GridBagConstraints) g.clone());
+		formulario.add(lblNome, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtNome = new JTextField();
@@ -109,14 +110,14 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtNome, (GridBagConstraints) g.clone());
+		formulario.add(txtNome, g);
 
 		// Marca
 		g.gridx = 0; g.gridy = 2; g.weightx = 0;
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setFont(labelFont);
 		lblMarca.setForeground(COLOR_TEXT);
-		formulario.add(lblMarca, (GridBagConstraints) g.clone());
+		formulario.add(lblMarca, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtMarca = new JTextField();
@@ -125,14 +126,14 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtMarca, (GridBagConstraints) g.clone());
+		formulario.add(txtMarca, g);
 
 		// Aplicação
 		g.gridx = 0; g.gridy = 3; g.weightx = 0;
 		JLabel lblAplicacao = new JLabel("Aplicação:");
 		lblAplicacao.setFont(labelFont);
 		lblAplicacao.setForeground(COLOR_TEXT);
-		formulario.add(lblAplicacao, (GridBagConstraints) g.clone());
+		formulario.add(lblAplicacao, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtAplicacao = new JTextField();
@@ -141,14 +142,14 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtAplicacao, (GridBagConstraints) g.clone());
+		formulario.add(txtAplicacao, g);
 
 		// Preço
 		g.gridx = 0; g.gridy = 4; g.weightx = 0;
 		JLabel lblPreco = new JLabel("Preço (R$):");
 		lblPreco.setFont(labelFont);
 		lblPreco.setForeground(COLOR_TEXT);
-		formulario.add(lblPreco, (GridBagConstraints) g.clone());
+		formulario.add(lblPreco, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtPreco = new JTextField();
@@ -157,14 +158,14 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtPreco, (GridBagConstraints) g.clone());
+		formulario.add(txtPreco, g);
 
 		// Quantidade
 		g.gridx = 0; g.gridy = 5; g.weightx = 0;
 		JLabel lblQtd = new JLabel("Quantidade:");
 		lblQtd.setFont(labelFont);
 		lblQtd.setForeground(COLOR_TEXT);
-		formulario.add(lblQtd, (GridBagConstraints) g.clone());
+		formulario.add(lblQtd, g);
 
 		g.gridx = 1; g.weightx = 1;
 		txtQuantidade = new JTextField();
@@ -173,7 +174,7 @@ public class JanelaPeca extends JFrame {
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtQuantidade, (GridBagConstraints) g.clone());
+		formulario.add(txtQuantidade, g);
 
 		mainPanel.add(formulario, BorderLayout.NORTH);
 
@@ -196,96 +197,15 @@ public class JanelaPeca extends JFrame {
 		mainPanel.add(scrollTabela, BorderLayout.CENTER);
 
 		// --- BARRA DE BOTÕES ---
-		Font btnFont = new Font("Segoe UI", Font.BOLD, 12);
-		Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
-
-		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setFont(btnFont);
-		btnCadastrar.setFocusPainted(false);
-		btnCadastrar.setCursor(handCursor);
-		btnCadastrar.setBackground(new Color(241, 245, 249));
-		btnCadastrar.setForeground(COLOR_PRIMARY);
-		btnCadastrar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setFont(btnFont);
-		btnAtualizar.setFocusPainted(false);
-		btnAtualizar.setCursor(handCursor);
-		btnAtualizar.setBackground(new Color(241, 245, 249));
-		btnAtualizar.setForeground(COLOR_TEXT);
-		btnAtualizar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnExcluir = new JButton("Excluir");
-		btnExcluir.setFont(btnFont);
-		btnExcluir.setFocusPainted(false);
-		btnExcluir.setCursor(handCursor);
-		btnExcluir.setBackground(new Color(241, 245, 249));
-		btnExcluir.setForeground(COLOR_DANGER);
-		btnExcluir.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setFont(btnFont);
-		btnBuscar.setFocusPainted(false);
-		btnBuscar.setCursor(handCursor);
-		btnBuscar.setBackground(new Color(241, 245, 249));
-		btnBuscar.setForeground(COLOR_TEXT);
-		btnBuscar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnLimpar = new JButton("Limpar");
-		btnLimpar.setFont(btnFont);
-		btnLimpar.setFocusPainted(false);
-		btnLimpar.setCursor(handCursor);
-		btnLimpar.setBackground(new Color(241, 245, 249));
-		btnLimpar.setForeground(COLOR_TEXT);
-		btnLimpar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnListar = new JButton("Listar Tudo");
-		btnListar.setFont(btnFont);
-		btnListar.setFocusPainted(false);
-		btnListar.setCursor(handCursor);
-		btnListar.setBackground(new Color(241, 245, 249));
-		btnListar.setForeground(COLOR_TEXT);
-		btnListar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnVender = new JButton("Vender");
-		btnVender.setFont(btnFont);
-		btnVender.setFocusPainted(false);
-		btnVender.setCursor(handCursor);
-		btnVender.setBackground(new Color(241, 245, 249));
-		btnVender.setForeground(new Color(16, 185, 129));
-		btnVender.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
-
-		btnFechar = new JButton("Fechar");
-		btnFechar.setFont(btnFont);
-		btnFechar.setFocusPainted(false);
-		btnFechar.setCursor(handCursor);
-		btnFechar.setBackground(new Color(241, 245, 249));
-		btnFechar.setForeground(COLOR_TEXT);
-		btnFechar.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
-				BorderFactory.createEmptyBorder(6, 12, 6, 12)
-		));
+		btnCadastrar = criarBotao("Cadastrar", COLOR_PRIMARY);
+		btnAtualizar = criarBotao("Atualizar", COLOR_TEXT);
+		btnBuscar = criarBotao("Buscar Código", COLOR_TEXT);
+		btnBuscarMarca = criarBotao("Buscar Marca", COLOR_TEXT);
+		btnListar = criarBotao("Listar Tudo", COLOR_TEXT);
+		btnLimpar = criarBotao("Limpar", COLOR_TEXT);
+		btnVender = criarBotao("Vender", new Color(16, 185, 129));
+		btnExcluir = criarBotao("Excluir", COLOR_DANGER);
+		btnFechar = criarBotao("Fechar", COLOR_TEXT);
 
 		JPanel barraBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 6, 6));
 		barraBotoes.setOpaque(false);
@@ -293,6 +213,7 @@ public class JanelaPeca extends JFrame {
 		barraBotoes.add(btnCadastrar);
 		barraBotoes.add(btnAtualizar);
 		barraBotoes.add(btnBuscar);
+		barraBotoes.add(btnBuscarMarca);
 		barraBotoes.add(btnListar);
 		barraBotoes.add(btnLimpar);
 		barraBotoes.add(btnVender);
@@ -301,6 +222,20 @@ public class JanelaPeca extends JFrame {
 
 		mainPanel.add(barraBotoes, BorderLayout.SOUTH);
 		getContentPane().add(mainPanel);
+	}
+
+	private JButton criarBotao(String texto, Color corTexto) {
+		JButton btn = new JButton(texto);
+		btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btn.setFocusPainted(false);
+		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btn.setBackground(new Color(241, 245, 249));
+		btn.setForeground(corTexto);
+		btn.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+				BorderFactory.createEmptyBorder(6, 10, 6, 10)
+		));
+		return btn;
 	}
 
 	public void modoCliente() {
@@ -321,6 +256,7 @@ public class JanelaPeca extends JFrame {
 	public JButton getBtnAtualizar() { return btnAtualizar; }
 	public JButton getBtnExcluir() { return btnExcluir; }
 	public JButton getBtnBuscar() { return btnBuscar; }
+	public JButton getBtnBuscarMarca() { return btnBuscarMarca; }
 	public JButton getBtnLimpar() { return btnLimpar; }
 	public JButton getBtnListar() { return btnListar; }
 	public JButton getBtnVender() { return btnVender; }
@@ -328,8 +264,6 @@ public class JanelaPeca extends JFrame {
 
 	public DefaultTableModel getModeloTabela() { return modeloTabela; }
 	public JTable getTabela() { return tabela; }
-
-	// --- MÉTODOS AUXILIARES E DE INTERAÇÃO COM A VIEW ---
 
 	public void limparCampos() {
 		txtCodigo.setText("");
