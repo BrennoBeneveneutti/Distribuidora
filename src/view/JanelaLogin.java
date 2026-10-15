@@ -63,7 +63,7 @@ public class JanelaLogin extends JFrame {
 		lblSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblSubtitle.setForeground(COLOR_MUTED);
 
-		headerPanel.add(lblTitle, BorderLayout.NORTH);
+		headerPanel.add(lblTitle, BorderLayout.WEST);
 		headerPanel.add(lblSubtitle, BorderLayout.SOUTH);
 		mainPanel.add(headerPanel, BorderLayout.NORTH);
 

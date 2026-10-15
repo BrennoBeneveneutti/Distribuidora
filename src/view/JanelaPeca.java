@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.Peca;
+import javax.swing.JMenuBar;
 
 public class JanelaPeca extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -73,108 +74,158 @@ public class JanelaPeca extends JFrame {
 				new EmptyBorder(12, 12, 12, 12)
 		));
 
-		GridBagConstraints g = new GridBagConstraints();
-		g.insets = new Insets(5, 5, 5, 5);
-		g.fill = GridBagConstraints.HORIZONTAL;
-
 		Font labelFont = new Font("Segoe UI", Font.BOLD, 12);
 		Font fieldFont = new Font("Segoe UI", Font.PLAIN, 13);
 
-		// Código
-		g.gridx = 0; g.gridy = 0; g.weightx = 0;
+		// --- LINHA 0: Código ---
 		JLabel lblCodigo = new JLabel("Código:");
 		lblCodigo.setFont(labelFont);
 		lblCodigo.setForeground(COLOR_TEXT);
-		formulario.add(lblCodigo, g);
+		GridBagConstraints gbc_lblCodigo = new GridBagConstraints();
+		gbc_lblCodigo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCodigo.insets = new Insets(5, 5, 5, 5);
+		gbc_lblCodigo.gridx = 0;
+		gbc_lblCodigo.gridy = 0;
+		formulario.add(lblCodigo, gbc_lblCodigo);
 
-		g.gridx = 1; g.weightx = 1;
 		txtCodigo = new JTextField();
 		txtCodigo.setFont(fieldFont);
 		txtCodigo.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtCodigo, g);
+		GridBagConstraints gbc_txtCodigo = new GridBagConstraints();
+		gbc_txtCodigo.weightx = 1.0;
+		gbc_txtCodigo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCodigo.insets = new Insets(5, 5, 5, 5);
+		gbc_txtCodigo.gridx = 1;
+		gbc_txtCodigo.gridy = 0;
+		formulario.add(txtCodigo, gbc_txtCodigo);
 
-		// Nome / Descrição
-		g.gridx = 0; g.gridy = 1; g.weightx = 0;
+		// --- LINHA 1: Descrição ---
 		JLabel lblNome = new JLabel("Descrição:");
 		lblNome.setFont(labelFont);
 		lblNome.setForeground(COLOR_TEXT);
-		formulario.add(lblNome, g);
+		GridBagConstraints gbc_lblNome = new GridBagConstraints();
+		gbc_lblNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNome.insets = new Insets(5, 5, 5, 5);
+		gbc_lblNome.gridx = 0;
+		gbc_lblNome.gridy = 1;
+		formulario.add(lblNome, gbc_lblNome);
 
-		g.gridx = 1; g.weightx = 1;
 		txtNome = new JTextField();
 		txtNome.setFont(fieldFont);
 		txtNome.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtNome, g);
+		GridBagConstraints gbc_txtNome = new GridBagConstraints();
+		gbc_txtNome.weightx = 1.0;
+		gbc_txtNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNome.insets = new Insets(5, 5, 5, 5);
+		gbc_txtNome.gridx = 1;
+		gbc_txtNome.gridy = 1;
+		formulario.add(txtNome, gbc_txtNome);
 
-		// Marca
-		g.gridx = 0; g.gridy = 2; g.weightx = 0;
+		// --- LINHA 2: Marca ---
 		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setFont(labelFont);
 		lblMarca.setForeground(COLOR_TEXT);
-		formulario.add(lblMarca, g);
+		GridBagConstraints gbc_lblMarca = new GridBagConstraints();
+		gbc_lblMarca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblMarca.insets = new Insets(5, 5, 5, 5);
+		gbc_lblMarca.gridx = 0;
+		gbc_lblMarca.gridy = 2;
+		formulario.add(lblMarca, gbc_lblMarca);
 
-		g.gridx = 1; g.weightx = 1;
 		txtMarca = new JTextField();
 		txtMarca.setFont(fieldFont);
 		txtMarca.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtMarca, g);
+		GridBagConstraints gbc_txtMarca = new GridBagConstraints();
+		gbc_txtMarca.weightx = 1.0;
+		gbc_txtMarca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtMarca.insets = new Insets(5, 5, 5, 5);
+		gbc_txtMarca.gridx = 1;
+		gbc_txtMarca.gridy = 2;
+		formulario.add(txtMarca, gbc_txtMarca);
 
-		// Aplicação
-		g.gridx = 0; g.gridy = 3; g.weightx = 0;
+		// --- LINHA 3: Aplicação ---
 		JLabel lblAplicacao = new JLabel("Aplicação:");
 		lblAplicacao.setFont(labelFont);
 		lblAplicacao.setForeground(COLOR_TEXT);
-		formulario.add(lblAplicacao, g);
+		GridBagConstraints gbc_lblAplicacao = new GridBagConstraints();
+		gbc_lblAplicacao.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAplicacao.insets = new Insets(5, 5, 5, 5);
+		gbc_lblAplicacao.gridx = 0;
+		gbc_lblAplicacao.gridy = 3;
+		formulario.add(lblAplicacao, gbc_lblAplicacao);
 
-		g.gridx = 1; g.weightx = 1;
 		txtAplicacao = new JTextField();
 		txtAplicacao.setFont(fieldFont);
 		txtAplicacao.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtAplicacao, g);
+		GridBagConstraints gbc_txtAplicacao = new GridBagConstraints();
+		gbc_txtAplicacao.weightx = 1.0;
+		gbc_txtAplicacao.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtAplicacao.insets = new Insets(5, 5, 5, 5);
+		gbc_txtAplicacao.gridx = 1;
+		gbc_txtAplicacao.gridy = 3;
+		formulario.add(txtAplicacao, gbc_txtAplicacao);
 
-		// Preço
-		g.gridx = 0; g.gridy = 4; g.weightx = 0;
+		// --- LINHA 4: Preço ---
 		JLabel lblPreco = new JLabel("Preço (R$):");
 		lblPreco.setFont(labelFont);
 		lblPreco.setForeground(COLOR_TEXT);
-		formulario.add(lblPreco, g);
+		GridBagConstraints gbc_lblPreco = new GridBagConstraints();
+		gbc_lblPreco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblPreco.insets = new Insets(5, 5, 5, 5);
+		gbc_lblPreco.gridx = 0;
+		gbc_lblPreco.gridy = 4;
+		formulario.add(lblPreco, gbc_lblPreco);
 
-		g.gridx = 1; g.weightx = 1;
 		txtPreco = new JTextField();
 		txtPreco.setFont(fieldFont);
 		txtPreco.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtPreco, g);
+		GridBagConstraints gbc_txtPreco = new GridBagConstraints();
+		gbc_txtPreco.weightx = 1.0;
+		gbc_txtPreco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPreco.insets = new Insets(5, 5, 5, 5);
+		gbc_txtPreco.gridx = 1;
+		gbc_txtPreco.gridy = 4;
+		formulario.add(txtPreco, gbc_txtPreco);
 
-		// Quantidade
-		g.gridx = 0; g.gridy = 5; g.weightx = 0;
+		// --- LINHA 5: Quantidade ---
 		JLabel lblQtd = new JLabel("Quantidade:");
 		lblQtd.setFont(labelFont);
 		lblQtd.setForeground(COLOR_TEXT);
-		formulario.add(lblQtd, g);
+		GridBagConstraints gbc_lblQtd = new GridBagConstraints();
+		gbc_lblQtd.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblQtd.insets = new Insets(5, 5, 5, 5);
+		gbc_lblQtd.gridx = 0;
+		gbc_lblQtd.gridy = 5;
+		formulario.add(lblQtd, gbc_lblQtd);
 
-		g.gridx = 1; g.weightx = 1;
 		txtQuantidade = new JTextField();
 		txtQuantidade.setFont(fieldFont);
 		txtQuantidade.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
 				BorderFactory.createEmptyBorder(5, 8, 5, 8)
 		));
-		formulario.add(txtQuantidade, g);
+		GridBagConstraints gbc_txtQuantidade = new GridBagConstraints();
+		gbc_txtQuantidade.weightx = 1.0;
+		gbc_txtQuantidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtQuantidade.insets = new Insets(5, 5, 5, 5);
+		gbc_txtQuantidade.gridx = 1;
+		gbc_txtQuantidade.gridy = 5;
+		formulario.add(txtQuantidade, gbc_txtQuantidade);
 
 		mainPanel.add(formulario, BorderLayout.NORTH);
 
@@ -222,6 +273,9 @@ public class JanelaPeca extends JFrame {
 
 		mainPanel.add(barraBotoes, BorderLayout.SOUTH);
 		getContentPane().add(mainPanel);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 	}
 
 	private JButton criarBotao(String texto, Color corTexto) {
