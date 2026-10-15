@@ -9,3 +9,7 @@ fggfg;fgfg;CLIENTE
 fdfgdf;dfgdfgd;VENDEDOR
 fghf;fhfhfgh;VENDEDOR
 bruno;123;VENDEDOR
+hgfd;jhgfdsa;CLIENTE
+lkjhgfd;kjh;VENDEDOR
+çlkjhgfd;l,mnbvc;CLIENTE
+çlknbv;,mnbgf;VENDEDOR
